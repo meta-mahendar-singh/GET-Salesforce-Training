@@ -1,6 +1,6 @@
 <apex:page Controller="AjaxForClassController">
     <apex:form >
-        <apex:pageBlock >
+        <apex:pageBlock id="ClassesList">
             <apex:pageBlockSection >
                 <apex:pageBlockTable value="{!Classes}" var="cls">
                     <apex:column value="{!cls.Name}" headerValue="Class Name"/>
@@ -10,20 +10,20 @@
                     <apex:column value="{!cls.MaxSize__c}" />
                     <apex:column value="{!cls.Custom_Status__c}" />
                     <apex:column >
-                        <apex:commandLink action="{!editClass}" value="edit" >
-                            <apex:param name="ClassId" assignTo="{!ClassId}" value="{!cls.Id}"/>
+                        <apex:commandLink action="{!editClass}" value="edit" reRender="ClassForm">
+                            <apex:param name="ClassId" assignTo="{!ClassId}" value="{!cls.Id}" />
                         </apex:commandLink>
                     </apex:column>
                     <apex:column >
-                        <apex:commandLink action="{!deleteClass}" value="delete">
+                        <apex:commandLink action="{!deleteClass}" value="delete" reRender="ClassesList ,ClassForm ">
                             <apex:param name="ClassId" assignTo="{!ClassId}" value="{!cls.Id}"/>
                         </apex:commandLink>
                     </apex:column>
                 </apex:pageBlockTable>
             </apex:pageBlockSection>
         </apex:pageBlock>
-        <apex:pageBlock rendered="{!Render}">
-            <apex:pageBlockSection >
+        <apex:pageBlock id="ClassForm">
+            <apex:pageBlockSection rendered="{!Render}">
                 <apex:inputField value="{!SelectedClass.Name}"/>
                 <apex:inputField value="{!SelectedClass.ClassTeacher__c}"/>
                 <apex:inputField value="{!SelectedClass.Board__c}"/>
@@ -31,7 +31,7 @@
                 <apex:inputField value="{!SelectedClass.MaxSize__c}"/>
                 <apex:inputField value="{!SelectedClass.Custom_Status__c}"/>
             </apex:pageBlockSection>
-            <apex:pageBlockButtons location="top">
+            <apex:pageBlockButtons location="top" rendered="{!Render}">
                 <apex:commandButton value="Save" action="{!updateClass}"/>
             </apex:pageBlockButtons>
         </apex:pageBlock>
