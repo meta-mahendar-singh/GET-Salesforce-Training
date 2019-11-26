@@ -7,11 +7,15 @@ public class StudentDetailController {
     }
     
     public PageReference savePdf() {
-        system.debug(std.Id);
         PageReference pdf = Page.StudentDetails2;
         pdf.getParameters().put('id',std.Id);
         Attachment attach = new Attachment();
-        attach.Body = pdf.getContentAsPDF();
+        if (Test.IsRunningTest()) {
+            attach.Body=Blob.valueOf('UNIT.TEST');
+        }
+        else {
+            attach.Body = pdf.getContentAsPDF();
+        }
         attach.Name = 'StudentDetails.pdf';
         attach.IsPrivate = false;
         attach.ParentId = std.Id;
