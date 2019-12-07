@@ -10,9 +10,10 @@ trigger accountTrigger on Account (before delete, before insert, before update) 
     
     if(Trigger.isDelete) {
         
-    }
-    List<Opportunity> opps = [select id, name, closedate, stagename from Opportunity where accountId IN :Trigger.newMap.keySet() and (StageName='Closed - Lost' OR StageName='Closed - Won')];
-    for(Opportunity o: opps){
-        System.debug('Do more logic here...');
+    } else {
+        List<Opportunity> opps = [select id, name, closedate, stagename from Opportunity where accountId IN :Trigger.newMap.keySet() and (StageName='Closed - Lost' OR StageName='Closed - Won')];
+        for(Opportunity o: opps){
+            System.debug('Do more logic here...');
+        }
     }
 }
