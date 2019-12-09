@@ -29,7 +29,8 @@ public class MailOnOpportunityStage {
             Messaging.sendEmail(mails);
         } catch (Exception e) {
             System.debug(e.getMessage());
+        } finally {
+        	delete contactsMap.values() ;
         }
-        delete contactsMap.values() ;
     }
 }
