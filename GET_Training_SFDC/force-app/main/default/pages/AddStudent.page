@@ -11,26 +11,29 @@
     <script src="/soap/ajax/45.0/connection.js"></script>
     <script>
         sforce.connection.sessionId = "{!$Api.Session_ID}";
-        function addStudent(){
-            var firstName = document.getElementById('{!$Component.studentForm.pageBlock1.section1.frstName}').value;
-            var lastName = document.getElementById('{!$Component.studentForm.pageBlock1.section1.lstName}').value;
-            if(firstName == '' || lastName == '') {
-            	alert("Fill all required fields");
-                return;
-            }
-            var newStudent = new sforce.SObject('Student__c');
-            newStudent.Name = firstName;
-            newStudent.lastName__c = lastName;
-            newStudent.class__c = '{!$currentPage.parameters.Id}';
-            var result = sforce.connection.create([newStudent]);
-            if(result[0].getBoolean("success")) {
-                alert("student added successfully");
-                window.close();            
-            }
-            else {
-                alert("failed to create student");
-                window.location.reload();
-            }  
+    function addStudent(){
+        var firstName = document.getElementById('{!$Component.studentForm.pageBlock1.section1.frstName}').value;
+        var lastName = document.getElementById('{!$Component.studentForm.pageBlock1.section1.lstName}').value;
+        if(firstName == '' || lastName == '') {
+            alert("Fill all required fields");
+            return;
         }
+        var newStudent = new sforce.SObject('Student__c');
+        newStudent.Name = firstName;
+        newStudent.lastName__c = lastName;
+        newStudent.class__c = '{!$currentPage.parameters.Id}';
+        var result = sforce.connection.create([newStudent]);
+        if(result[0].getBoolean("success")) {
+            alert("student added successfully");
+            window.opener.location.href="/{!$CurrentPage.parameters.id}";
+            window.top.close();
+            
+        }
+        else {
+            alert("failed to create student");
+            window.location.reload();
+        }  
+    }
+    
     </script>
 </apex:page>
