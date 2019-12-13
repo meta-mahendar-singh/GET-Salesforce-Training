@@ -19,8 +19,6 @@
         </ui:message>
     </aura:if>
     
-    
-    
     <!-- CREATE NEW Contact -->
     <div aria-labelledby="newcontactform">
         <fieldset class="slds-box slds-theme--default slds-container--small">
